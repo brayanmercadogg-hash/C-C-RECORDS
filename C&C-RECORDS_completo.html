@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C&C Records</title>
+  <link rel="icon" type="image/png" href="img/LOGO-DISQUERA.jpeg">
+   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #050505;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --gold-neon: #fff700;
+      --red: #b30000;
+      --black: #050505;
+      --dark: #111111;
+    }
+
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(0,0,0,0.75);
+      border-bottom: 2px solid rgba(255,247,0,0.35);
+      box-shadow:
+        0 0 10px rgba(255,247,0,0.4),
+        0 0 25px rgba(255,247,0,0.25);
+    }
+
+    .navbar {
+      width: 92%;
+      max-width: 1300px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold-neon);
+      text-shadow:
+        0 0 5px var(--gold-neon),
+        0 0 10px var(--gold-neon),
+        0 0 20px rgba(255,247,0,0.8),
+        0 0 40px rgba(255,247,0,0.6);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .menu-toggle span {
+      width: 28px;
+      height: 3px;
+      background: var(--gold-neon);
+      border-radius: 10px;
+      box-shadow: 0 0 10px var(--gold-neon);
+      transition: 0.3s;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      transition: 0.3s;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      left: 0;
+      bottom: -6px;
+      background: var(--gold-neon);
+      transition: 0.3s;
+      box-shadow:
+        0 0 10px var(--gold-neon),
+        0 0 20px var(--gold-neon);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-neon);
+      text-shadow:
+        0 0 10px var(--gold-neon),
+        0 0 20px var(--gold-neon);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #8b0000, #000000, #2a1d00);
+      padding: 140px 8% 70px;
+    }
+
+    .hero-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      align-items: center;
+      gap: 60px;
+      width: 100%;
+      max-width: 1300px;
+    }
+
+    .hero-text span {
+      background: var(--gold-neon);
+      color: black;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow:
+        0 0 10px var(--gold-neon),
+        0 0 25px rgba(255,247,0,0.8);
+    }
+
+    .hero-text h1 {
+      font-size: 5rem;
+      line-height: 1.1;
+      margin-top: 25px;
+      font-weight: 800;
+    }
+
+    .hero-text h1 strong {
+      color: var(--gold-neon);
+      text-shadow:
+        0 0 10px var(--gold-neon),
+        0 0 20px var(--gold-neon),
+        0 0 40px rgba(255,247,0,0.7);
+    }
+
+    .hero-text p {
+      margin-top: 20px;
+      color: #ccc;
+      line-height: 1.8;
+      max-width: 550px;
+      font-size: 1.05rem;
+    }
+
+    .hero-buttons {
+      margin-top: 35px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      border-radius: 15px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.4s;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--gold-neon);
+      color: black;
+      box-shadow:
+        0 0 15px var(--gold-neon),
+        0 0 35px rgba(255,247,0,0.7);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+    }
+
+    .btn-secondary {
+      border: 2px solid white;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: black;
+    }
+
+    .hero-image {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 30px;
+      border: 4px solid var(--gold-neon);
+      box-shadow:
+        0 0 25px var(--gold-neon),
+        0 0 60px rgba(255,247,0,0.5);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    section {
+      padding: 100px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      color: var(--gold-neon);
+      margin-bottom: 15px;
+      text-shadow:
+        0 0 10px var(--gold-neon),
+        0 0 25px rgba(255,247,0,0.7);
+    }
+
+    .section-title p {
+      color: #aaa;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.8;
+    }
+
+    .cards,
+    .services-grid,
+    .socials {
+      display: grid;
+      gap: 30px;
+    }
+
+    .cards {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* PC */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    
+    /* TABLETS */
+    @media(max-width: 992px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    /* CELULARES */
+    @media(max-width: 600px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+    
+      .service {
+        padding: 20px;
+      }
+    
+      .service h3 {
+        font-size: 1rem;
+      }
+    
+      .service p {
+        font-size: 0.85rem;
+      }
+      }
+
+    .socials {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card,
+    .service,
+    .social,
+    .stat-box {
+      background: linear-gradient(180deg, #141414, #000);
+      border: 1px solid rgba(255,247,0,0.2);
+      border-radius: 25px;
+      overflow: hidden;
+      transition: 0.4s;
+    }
+
+    .card:hover,
+    .service:hover,
+    .social:hover,
+    .stat-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 35px rgba(255,247,0,0.2);
+    }
+
+    .card img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .card:hover img {
+      transform: scale(1.08);
+    }
+
+    .card-content,
+    .service,
+    .social {
+      padding: 25px;
+    }
+
+    .card-content h3,
+    .service h3,
+    .social h3 {
+      font-size: 1.6rem;
+    }
+
+    .card-content p,
+    .service p,
+    .social p {
+      margin-top: 12px;
+      line-height: 1.7;
+      color: #ccc;
+    }
+
+    .card-content button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: var(--gold-neon);
+      color: black;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: #ccc;
+      line-height: 1.9;
+      margin-top: 20px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .stat-box {
+      padding: 35px;
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 2.5rem;
+      color: var(--gold-neon);
+      text-shadow:
+        0 0 10px var(--gold-neon),
+        0 0 20px rgba(255,247,0,0.7);
+    }
+
+    .service i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .social {
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .social h3 {
+      color: var(--gold-neon);
+      text-shadow:
+        0 0 10px var(--gold-neon),
+        0 0 20px rgba(255,247,0,0.6);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      b: #777;
+      liorder-top: 1px solid rgba(255,247,0,0.1);
+      colorne-height: 1.7;
+    }
+
+    /* TABLETS */
+    @media(max-width: 992px) {
+      .hero {
+        padding-top: 170px;
+      }
+
+      .hero-text h1 {
+        font-size: 4rem;
+      }
+
+      .hero-container {
+        gap: 40px;
+      }
+
+      .hero-image img {
+        max-width: 330px;
+      }
+    }
+
+    /* CELULARES */
+    @media(max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.96);
+        flex-direction: column;
+        align-items: center;
+        padding: 25px 0;
+        gap: 22px;
+        border-bottom: 2px solid rgba(255,247,0,0.2);
+        display: none;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hero {
+        padding: 150px 6% 60px;
+        text-align: center;
+      }
+
+      .hero-container {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-text {
+        order: 2;
+      }
+
+      .hero-image {
+        order: 1;
+      }
+
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+
+      .hero-text p {
+        max-width: 100%;
+        font-size: 1rem;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-image img {
+        max-width: 260px;
+      }
+
+      section {
+        padding: 80px 6%;
+      }
+
+      .section-title h2 {
+        font-size: 2.3rem;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .card img {
+        height: 280px;
+      }
+    }
+
+    /* CELULARES PEQUEÑOS */
+    @media(max-width: 480px) {
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      .hero-text h1 {
+        font-size: 2.4rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .card-content h3,
+      .service h3,
+      .social h3 {
+        font-size: 1.3rem;
+      }
+
+      .btn {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+      }
+    }
+    /* =========================================
+   MODAL ARTISTAS PREMIUM
+========================================= */
+
+.artist-modal{
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,0,0,.95),
+      rgba(20,20,20,.92)
+    );
+
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: .35s ease;
+
+  z-index: 9999;
+}
+
+.artist-modal.active{
+  opacity: 1;
+  visibility: visible;
+}
+
+/* CAJA */
+
+.modal-content{
+
+  position: relative;
+
+  width: 100%;
+  max-width: 900px;
+
+  min-height: 500px;
+
+  display: grid;
+  grid-template-columns: 380px 1fr;
+
+  overflow: hidden;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #0b0b0b,
+      #141414
+    );
+
+  border: 1px solid rgba(255,247,0,.18);
+
+  box-shadow:
+    0 0 25px rgba(255,247,0,.08),
+    0 0 80px rgba(255,247,0,.06);
+
+  transform: scale(.85);
+  transition: .4s ease;
+}
+
+.artist-modal.active .modal-content{
+  transform: scale(1);
+}
+
+/* IMAGEN */
+
+.modal-content img{
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-right: 1px solid rgba(255,247,0,.12);
+}
+
+/* INFO */
+
+.modal-info{
+
+  padding: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* TITULO */
+
+.modal-info h2{
+
+  font-size: 3rem;
+  font-weight: 800;
+
+  color: #fff700;
+
+  margin-bottom: 10px;
+
+  text-shadow:
+    0 0 10px rgba(255,247,0,.4);
+}
+
+/* GENERO */
+
+.genre{
+
+  display: inline-block;
+
+  width: fit-content;
+
+  padding: 10px 18px;
+
+  border-radius: 50px;
+
+  background: rgba(255,247,0,.08);
+
+  border: 1px solid rgba(255,247,0,.18);
+
+  color: #fff700;
+
+  font-size: .9rem;
+  font-weight: 600;
+
+  margin-bottom: 30px;
+}
+
+/* DESCRIPCION */
+
+#modalDescription{
+
+  color: #d0d0d0;
+
+  line-height: 1.9;
+
+  font-size: 1rem;
+
+  margin-bottom: 40px;
+}
+
+/* LINKS */
+
+.artist-links{
+
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.artist-links a{
+
+  text-decoration: none;
+
+  padding: 14px 22px;
+
+  border-radius: 14px;
+
+  font-weight: 700;
+
+  transition: .3s ease;
+
+  border: 1px solid rgba(255,247,0,.15);
+
+  background:
+    linear-gradient(
+      135deg,
+      #1b1b1b,
+      #111
+    );
+
+  color: white;
+}
+
+.artist-links a:hover{
+
+  background: #fff700;
+
+  color: black;
+
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 0 20px rgba(255,247,0,.3);
+}
+
+/* BOTON CERRAR */
+
+.close-modal{
+
+  position: absolute;
+
+  top: 18px;
+  right: 22px;
+
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(255,255,255,.05);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  color: white;
+
+  font-size: 1.4rem;
+
+  cursor: pointer;
+
+  transition: .3s ease;
+}
+
+.close-modal:hover{
+
+  background: #fff700;
+
+  color: black;
+
+  transform: rotate(90deg);
+}
+
+/* EFECTO DECORATIVO */
+
+.modal-content::before{
+
+  content: '';
+
+  position: absolute;
+
+  top: -120px;
+  right: -120px;
+
+  width: 250px;
+  height: 250px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      rgba(255,247,0,.15),
+      transparent 70%
+    );
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 900px){
+
+  .modal-content{
+
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+
+  .modal-content img{
+
+    height: 320px;
+
+    border-right: none;
+    border-bottom: 1px solid rgba(255,247,0,.1);
+  }
+
+  .modal-info{
+
+    padding: 35px;
+  }
+
+  .modal-info h2{
+
+    font-size: 2.2rem;
+  }
+
+}
+
+@media(max-width: 600px){
+
+  .modal-content{
+
+    border-radius: 24px;
+  }
+
+  .modal-info{
+
+    padding: 25px;
+  }
+
+  .modal-info h2{
+
+    font-size: 1.8rem;
+  }
+
+  .artist-links{
+
+    flex-direction: column;
+  }
+
+  .artist-links a{
+
+    width: 100%;
+    text-align: center;
+  }
+
+}
+</style>
+
+
+</head>
+
+<body>
+
+  <!-- MODAL -->
+<div class="artist-modal" id="artistModal">
+
+  <div class="modal-content">
+
+    <span class="close-modal" id="closeModal">
+      ✕
+    </span>
+
+    <img id="modalImage" src="" alt="">
+
+    <div class="modal-info">
+
+      <h2 id="modalName"></h2>
+
+      <p class="genre" id="modalGenre"></p>
+
+      <p id="modalDescription"></p>
+
+      <div class="artist-links">
+
+        <a id="spotifyLink" target="_blank">
+          Spotify
+        </a>
+
+        <a id="youtubeLink" target="_blank">
+          YouTube
+        </a>
+
+        <a id="instagramLink" target="_blank">
+          Instagram
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+  <!-- HEADER -->
+  <header>
+
+    <div class="navbar">
+
+      <div class="logo">C&C Records</div>
+
+      <ul class="nav-links">
+
+        <li><a href="#artistas">Artistas</a></li>
+
+        <li><a href="#nosotros">Nosotros</a></li>
+
+        <li><a href="#servicios">Servicios</a></li>
+
+        <li><a href="#redes">Redes</a></li>
+
+      </ul>
+
+    </div>
+
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-container">
+
+      <div class="hero-text">
+
+        <span>DISQUERA OFICIAL</span>
+
+        <h1>C&C <strong>Records</strong></h1>
+
+        <p>
+          Impulsamos talentos urbanos con producciones de alto nivel,
+          identidad visual poderosa y experiencias musicales únicas.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="#artistas" class="btn btn-primary">
+            Ver Artistas
+          </a>
+
+          <a href="#servicios" class="btn btn-secondary">
+            Nuestros Servicios
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="hero-image">
+
+        <img src="img/LOGO-DISQUERA.jpeg" alt="Logo C&C Records">
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ARTISTAS -->
+  <section id="artistas">
+
+    <div class="section-title">
+
+      <h2>Artistas</h2>
+
+      <p>
+        Talentos que representan nuestra esencia musical y llevan el
+        sonido urbano a otro nivel.
+      </p>
+
+    </div>
+
+    <div class="cards">
+
+      <!-- ANDER -->
+      <div class="card">
+
+        <img src="img/artistas/ander-llamas.jfif" alt="Ander Llamas">
+
+        <div class="card-content">
+
+          <h3>Ander Llamas</h3>
+
+          <p>
+            Afrobeat, Champeta & Trap Melancólico |
+            Vocalista & Compositor
+          </p>
+
+          <button
+            class="artist-btn"
+
+            data-name="Ander Llamas"
+
+            data-genre="Afrobeat, Champeta & Trap Melancólico"
+
+            data-description="Artista colombiano con una mezcla única entre afrobeat, champeta y sonidos melancólicos."
+
+            data-image="img/artistas/ander-llamas.jfif"
+
+            data-spotify="https://open.spotify.com/intl-es/album/5r0TsKxeiAf6yzZpiR5zIT"
+
+            data-youtube="https://youtube.com/@anderllamas?si=A9Yf9qjkO35Asjdc"
+
+            data-instagram="https://www.instagram.com/anderllamas_music?igsh=MTk5cWhrZnZubTM0aQ==">
+
+            Escuchar Música
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- XNGEL -->
+      <div class="card">
+
+        <img src="img/artistas/xngel-archive.jpeg" alt="Xngel Archive">
+
+        <div class="card-content">
+
+          <h3>Xngel Archive</h3>
+
+          <p>
+            Maleanteo & Trap | Vocalista
+          </p>
+
+          <button
+            class="artist-btn"
+
+            data-name="Xngel Archive"
+
+            data-genre="Maleanteo & Trap"
+
+            data-description="Artista enfocado en sonidos oscuros y maleanteo moderno."
+
+            data-image="img/artistas/xngel-archive.jpeg"
+
+            data-instagram="https://www.instagram.com/42xngel?igsh=MW9namgyZjEwNjN1NQ==">
+
+            Escuchar Música
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- JOICEM -->
+      <div class="card">
+
+        <img src="img/artistas/joicem.jpeg" alt="Joicem">
+
+        <div class="card-content">
+
+          <h3>Joicem</h3>
+
+          <p>
+            Champeta Urbana & Afrobeat |
+            Vocalista, Compositor & Guitarrista
+          </p>
+
+          <button
+            class="artist-btn"
+
+            data-name="Joicem"
+
+            data-genre="Champeta Urbana & Afrobeat"
+
+            data-description="Artista versátil que combina instrumentos en vivo y sonidos afro urbanos."
+
+            data-image="img/artistas/joicem.jpeg"
+
+            data-instagram="https://www.instagram.com/ces4r_3duardo?igsh=MWJoMjlwZGgxNGlvbg==">
+
+            Escuchar Música
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros">
+
+    <div class="about">
+
+      <div class="about-text">
+
+        <div class="section-title" style="text-align:left; margin-bottom:20px;">
+
+          <h2>Nosotros</h2>
+
+        </div>
+
+        <p>
+          En C&C Records desarrollamos artistas con identidad única,
+          mezclando creatividad, estrategia y producción profesional.
+        </p>
+
+        <p>
+          Nuestro objetivo es convertir ideas en éxitos musicales y
+          construir marcas artísticas con impacto internacional.
+        </p>
+
+      </div>
+
+      <div class="stats">
+
+        <div class="stat-box">
+          <h3>+40</h3>
+          <p>Canciones Lanzadas</p>
+        </div>
+
+        <div class="stat-box">
+          <h3>100%</h3>
+          <p>Calidad</p>
+        </div>
+
+        <div class="stat-box">
+          <h3>24/7</h3>
+          <p>Producción</p>
+        </div>
+
+        <div class="stat-box">
+          <h3>100%</h3>
+          <p>Creatividad</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+
+    <div class="section-title">
+
+      <h2>Servicios</h2>
+
+      <p>
+        Servicios profesionales adaptados a artistas emergentes y consolidados.
+      </p>
+
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service">
+        <i>🎵</i>
+        <h3>Producción Musical</h3>
+        <p>Creación profesional de beats y producción completa.</p>
+      </div>
+
+      <div class="service">
+        <i>🎤</i>
+        <h3>Grabación Profesional</h3>
+        <p>Estudio profesional con sonido de alta calidad.</p>
+      </div>
+
+      <div class="service">
+        <i>📀</i>
+        <h3>Distribución Digital</h3>
+        <p>Lleva tu música a Spotify, Instagram y más.</p>
+      </div>
+
+      <div class="service">
+        <i>📢</i>
+        <h3>Marketing Artístico</h3>
+        <p>Posicionamiento de marca y crecimiento musical.</p>
+      </div>
+
+      <div class="service">
+        <i>🎬</i>
+        <h3>Videos Musicales</h3>
+        <p>Producción audiovisual profesional y moderna.</p>
+      </div>
+
+      <div class="service">
+        <i>🔥</i>
+        <h3>Diseño de Imagen</h3>
+        <p>Construimos la identidad visual de tu proyecto.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- REDES -->
+  <section id="redes">
+
+    <div class="section-title">
+
+      <h2>Redes Sociales</h2>
+
+      <p>
+        Conéctate con nosotros y descubre nuestros nuevos lanzamientos.
+      </p>
+
+    </div>
+
+    <div class="socials">
+
+      <a href="https://www.instagram.com/cnc_recordss?igsh=N3BqazRsdzY4ZDY=" class="social">
+        <h3>Instagram</h3>
+        <p>@c&crecords</p>
+      </a>
+
+      <a href="#" class="social">
+        <h3>TikTok</h3>
+        <p>@c&crecords</p>
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+
+    © 2026 C&C Records — Todos los derechos reservados.
+
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // ANIMACIONES SCROLL
+
+const cards = document.querySelectorAll('.card, .service, .social, .stat-box');
+
+window.addEventListener('scroll', () => {
+
+  cards.forEach(card => {
+
+    const cardTop = card.getBoundingClientRect().top;
+
+    if(cardTop < window.innerHeight - 100){
+
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+
+    }
+
+  });
+
+});
+
+cards.forEach(card => {
+
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(40px)';
+  card.style.transition = '0.6s ease';
+
+});
+
+
+
+// MODAL ARTISTAS
+
+const artistButtons = document.querySelectorAll(".artist-btn");
+
+const modal = document.getElementById("artistModal");
+
+const closeModal = document.getElementById("closeModal");
+
+const modalName = document.getElementById("modalName");
+const modalGenre = document.getElementById("modalGenre");
+const modalDescription = document.getElementById("modalDescription");
+const modalImage = document.getElementById("modalImage");
+
+const spotifyLink = document.getElementById("spotifyLink");
+const youtubeLink = document.getElementById("youtubeLink");
+const instagramLink = document.getElementById("instagramLink");
+
+artistButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    modal.classList.add("active");
+
+    modalName.textContent = button.dataset.name;
+
+    modalGenre.textContent = button.dataset.genre;
+
+    modalDescription.textContent = button.dataset.description;
+
+    modalImage.src = button.dataset.image;
+
+    // LIMPIAR enlaces primero
+    spotifyLink.style.display = "none";
+    youtubeLink.style.display = "none";
+    instagramLink.style.display = "none";
+    
+    // SPOTIFY
+    if (button.dataset.spotify) {
+      spotifyLink.href = button.dataset.spotify;
+      spotifyLink.style.display = "inline-flex";
+    }
+    
+    // YOUTUBE
+    if (button.dataset.youtube) {
+      youtubeLink.href = button.dataset.youtube;
+      youtubeLink.style.display = "inline-flex";
+    }
+    
+    // INSTAGRAM
+    if (button.dataset.instagram) {
+      instagramLink.href = button.dataset.instagram;
+      instagramLink.style.display = "inline-flex";
+    }
+  });
+
+});
+
+closeModal.addEventListener("click", () => {
+
+  modal.classList.remove("active");
+
+});
+
+window.addEventListener("click", (e) => {
+
+  if(e.target === modal){
+
+    modal.classList.remove("active");
+
+  }
+
+});
+  </script>
+
+</body>
+
+</html>
